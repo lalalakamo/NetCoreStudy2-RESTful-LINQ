@@ -1,4 +1,15 @@
 ###RESTful練習
+
+### 以 HelloWorld 專案為例：
+
+| HTTP Method | 路徑 (Route) | 功能描述 | 範例 |
+| :--- | :--- | :--- | :--- |
+| **GET** | `api/HelloWorld` | 取得清單中所有資料 | 傳回所有 HelloWorld 列表 |
+| **GET** | `api/HelloWorld/{id}` | 取得指定 ID 的單筆資料 | 傳回 ID=1 的資料 |
+| **POST** | `api/HelloWorld` | 新增資料 | 新增 HelloWorld4 資料 |
+| **PUT** | `api/HelloWorld/{id}` | 更新指定 ID 的資料內容 | 將 ID=1 的標題改為 HelloWorld4 |
+| **DELETE** | `api/HelloWorld/{id}` | 刪除指定 ID 的資料 | 刪除 ID=1 的資料 |
+
 ##觀念建立
 1. **為避免不同開發風格導致Controller function命名雜亂 restful風格統一各function的寫法規則**
    *以本專案為例
