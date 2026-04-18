@@ -16,6 +16,7 @@ LINQ練習:
 
 觀念建立
 
+LINQ基本語法練習: 查詢語法與方法語法(搭配lambda)練習
 介面Interface: 可供查詢的集合具有唯獨的特性所以也比較輕量 本實作用到的是IEnumerable
 合約IActionResult: 如果直接傳回hellos如果遇到null前端會收到204 no content的錯誤碼，後端則會失去對 HTTP 語義的控制權。
 使用 IActionResult 的核心價值在於 「明確的 HTTP 狀態碼傳遞」
