@@ -10,4 +10,11 @@ namespace NetCoreStudy2
 
         public string? Summary { get; set; }
     }
+
+    public class Hellos
+    {
+        public int HelloID { get; set; }
+        public string Title { get; set; }
+        public string Content { get; set; }
+    }
 }

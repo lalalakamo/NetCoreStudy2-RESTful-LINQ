@@ -8,54 +8,82 @@ namespace NetCoreStudy2.Controllers
     [ApiController]
     public class HelloWorldController : ControllerBase
     {
-        // GET: api/<ValuesController>
-        [HttpGet]
-        public IEnumerable<string> Get()
+        private static readonly List<Hellos> _hellos = new List<Hellos>
         {
-            return new string[] { "HelloWorld1", "HelloWorld2","HelloWorld3" };
+            new Hellos{HelloID = 1,Title = "HelloWorld1",Content = "第一筆HelloWorld資料"},
+            new Hellos{HelloID = 2,Title = "HelloWorld2",Content = "第二筆HelloWorld資料"},
+            new Hellos{HelloID = 3,Title = "HelloWorld3",Content = "第三筆HelloWorld資料"},
+        };
+        // GET所有HELLOS
+        [HttpGet]
+        public IEnumerable<Hellos> Get()
+        {
+            return _hellos;
         }
 
         // GET api/<ValuesController>/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public IActionResult Get(int id)
         {
-            string result;
-            switch (id)
-            {
-                case 1:
-                    result = "HelloWorld1";
-                    break;
-                case 2:
-                    result = "HelloWorld2";
-                    break;
-                case 3:
-                    result = "HelloWorld3";
-                    break;
-                default:
-                    result = "HelloWorld" + id.ToString();
-                    break;
-            }
-            return result;
+            //查詢語法 (Query Syntax)
+            //var result = from a in Hellos
+            //             where a.HelloID == id
+            //             select a;
+
+            //方法語法 (Method Syntax)、lambda
+            var result = _hellos.FirstOrDefault(a => a.HelloID == id);
+
+            if (result == null)
+                return NotFound();
+            return Ok(result);
         }
         // POST api/<ValuesController>
         [HttpPost]
-        public string Post([FromBody]string value)
+        public IActionResult Post(Hellos value)
         {
-            return "Post:" + "HelloWorld" + value ;
+            _hellos.Add(value);
+            return Ok(value);
         }
 
         // PUT api/<ValuesController>/5
         [HttpPut("{id}")]
-        public string Put(int id, [FromBody] string value)
+        public IActionResult Put(int id, Hellos value)
         {
-            return "Put:HelloWorld" + id + " to " +  value ; 
+            //查詢語法 (Query Syntax)
+            //var update = (from a in Hellos
+            //             where a.HelloID == id
+            //             select a).SingleOrDefault();
+            //方法語法 (Method Syntax)、lambda
+            var update = _hellos.SingleOrDefault(a => a.HelloID == id);
+
+            if (update != null)
+            {
+                update.Title = value.Title;
+                update.Content = value.Content;
+            }
+            else
+            {
+                return NotFound();
+            }
+            return Ok(update);
         }
 
         // DELETE api/<ValuesController>/5
         [HttpDelete("{id}")]
-        public string Delete(int id)
+        public IActionResult Delete(int id)
         {
-            return "Delete:HelloWorld" + id.ToString() ;
+            //查詢語法 (Query Syntax)
+            //var delete = (from a in Hellos
+            //              where a.HelloID == id
+            //              select a).SingleOrDefault();
+            //方法語法 (Method Syntax)、lambda
+            var delete = _hellos.SingleOrDefault(a => a.HelloID == id);
+
+            if (delete != null)
+                _hellos.Remove(delete);
+            else
+                return NotFound();
+            return Ok(delete);
         }
     }
 }
